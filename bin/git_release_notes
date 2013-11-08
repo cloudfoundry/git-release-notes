@@ -2,5 +2,5 @@
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), "..", "lib")
 require "git_release_notes"
 
- CLI.start
+ GitReleaseNotes::CLI.start
 
