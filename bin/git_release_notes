@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), "..", "lib")
+require "git_release_notes"
+
+if __FILE__ == $0
+  production_tag, rc_sha = ARGV
+  #else
+  #  production_tag = gets.chomp
+  #  rc_sha = gets.chomp
+  #end
+
+  whats_in_the_deploy = WhatsInTheDeploy.new(production_tag, rc_sha)
+  whats_in_the_deploy.compare_submodules
+  puts whats_in_the_deploy.generate_html(DATA.read)
+end
+
+__END__
+body {
+	font-family: "helvetica neue";
+	font-size:14px;
+}
+
+h2 {
+  display:inline;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.no-changes {
+	margin:10px;
+	padding:10px;
+	background-color: #efe;
+}
+
+.commit {
+	margin:10px;
+	padding:10px;
+	background-color: #f5f5f5;
+}
+
+.commit:nth-child(odd) {
+	background-color: #ddd;
+}
+
+.sha {
+	margin-bottom:5px;
+	font-size:12px;
+}
+
+.sha a {
+	color:#777;
+}
+
+.subject {
+	font-weight:bold;
+}
+
+.body {
+	padding:10px;
+	font-size:;
+}
+
+.author {
+	font-style:italic;
+}
+
+.date {
+	color:#777;
+	font-size:12px;
+}
+
