@@ -1,5 +1,4 @@
 require "rinku"
-require "erb"
 
 class GitRange
   COMMIT_FIELD_DELIMITER = "|||"

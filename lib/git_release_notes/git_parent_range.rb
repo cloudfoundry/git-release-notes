@@ -1,4 +1,4 @@
-class WhatsInTheDeploy
+class GitParentRange
   def initialize(sha1, sha2, git_web_url)
     @submodules = find_submodules
     @submodule_logs = []
@@ -21,16 +21,10 @@ class WhatsInTheDeploy
     end
   end
 
-  def generate_html(style)
-      html = ""
-      html << %Q{<html><head><style>#{style}</style></head><body>}
-
-      html << %Q{<h1>Changes in deploy from #{@sha1} to #{@sha2}</h1>}
-      @submodule_logs.each do |submodule_log|
-        html << submodule_log.generate_html
-      end
-      html << "</body></html>"
-      html
+  def generate_html
+    template_file = File.expand_path("../views/git_parent_range.html.erb", File.dirname(__FILE__))
+    renderer = ERB.new(File.read(template_file))
+    renderer.result(binding)
   end
 
   private
