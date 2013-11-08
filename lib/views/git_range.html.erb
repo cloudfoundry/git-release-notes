@@ -1,0 +1,17 @@
+<details>
+  <summary><h2><%= "#{submodule_anchor} (#{@commits.count} change(s))" %></h2></summary>
+  <H3><%= "#{commit_anchor(@sha1)}..#{commit_anchor(@sha2)} (#{comparison_anchor})"%></H3>
+  <% if @commits.count == 0 %>
+    <div class="no-changes">No Changes</div>
+  <% else %>
+      <% @commits.each do |commit| %>
+       <details class="commit">
+        <summary class="subject"><%= commit[:subject] %></summary>
+        <div class="sha"><%= commit_anchor(commit[:sha]) %></div>
+        <div class="body"><%= linkify(commit[:body]) %></div>
+        <div class="author"><%= commit[:author] %></div>
+       <div class="date"><%= commit[:date] %></div>
+       </details>
+      <% end %>
+ <% end %>
+ </details>

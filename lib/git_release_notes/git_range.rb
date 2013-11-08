@@ -1,4 +1,5 @@
 require "rinku"
+require "erb"
 
 class GitRange
   COMMIT_FIELD_DELIMITER = "|||"
@@ -48,22 +49,9 @@ class GitRange
   end
 
   def generate_html
-    html = ""
-    html << "<details>"
-    html << "<summary><h2>#{submodule_anchor} (#{@commits.count} change(s))</h2></summary>"
-    html << "<H3>#{commit_anchor(@sha1)}..#{commit_anchor(@sha2)} (#{comparison_anchor})</H3>"
-    html << %Q{<div class="no-changes">No Changes</div>} if @commits.count == 0
-    @commits.each do |commit|
-      html << %Q{<details class="commit">}
-      html << %Q{<summary class="subject">#{commit[:subject]}</summary>}
-
-      html << %Q{<div class="sha">#{commit_anchor(commit[:sha])}</div>}
-      html << %Q{<div class="body">#{linkify(commit[:body])}</div>}
-      html << %Q{<div class="author">#{commit[:author]}</div>}
-      html << %Q{<div class="date">#{commit[:date]}</div>}
-      html << %Q{</details>}
-    end
-    html << "</details>"
+    template_file = File.expand_path("../views/git_range.html.erb", File.dirname(__FILE__))
+    renderer = ERB.new(File.read(template_file))
+    renderer.result(binding)
   end
 
   private
