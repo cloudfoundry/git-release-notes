@@ -1,17 +1,27 @@
 <details>
-  <summary><h2><%= "#{submodule_anchor} (#{@commits.count} commits)" %></h2></summary>
-  <H3><%= "#{commit_anchor(@sha1)}..#{commit_anchor(@sha2)} (#{comparison_anchor})"%></H3>
+  <summary><h2><a href="<%= "#{@url}/commits/#{@sha2}" %>" target="_blank"><%= @submodule %></a>
+    <%= "(#{@commits.count} commits)" %></h2></summary>
+
+  <H3><a href="<%= "#{@url}/commit/#{@sha1}" %>"
+         target="_blank"><%= @sha1[0..7] %></a>..<a href="<%= "#{@url}/commit/#{@sha2}" %>"
+           target="_blank"><%= @sha2[0..7] %></a>
+    (<a href="<%= "#{@url}/compare/#{@sha1}...#{@sha2}" %>" target="_blank">compare</a>)
+ </H3>
+
   <% if @commits.count == 0 %>
-    <div class="no-changes">No Commits</div>
+      <div class="no-changes">No Commits</div>
   <% else %>
       <% @commits.each do |commit| %>
-       <details class="commit">
-        <summary class="subject"><%= commit[:subject] %></summary>
-        <div class="sha"><%= commit_anchor(commit[:sha]) %></div>
-        <div class="body"><%= linkify(commit[:body]) %></div>
-        <div class="author"><%= commit[:author] %></div>
-       <div class="date"><%= commit[:date] %></div>
-       </details>
+          <details class="commit">
+            <summary class="subject"><%= commit[:subject] %></summary>
+            <div class="sha">
+              <a href="<%= "#{@url}/commit/#{commit[:sha]}" %>" target="_blank"><%= commit[:sha][0..7] %></a>
+
+            </div>
+            <div class="body"><%= linkify(commit[:body]) %></div>
+            <div class="author"><%= commit[:author] %></div>
+            <div class="date"><%= commit[:date] %></div>
+          </details>
       <% end %>
- <% end %>
- </details>
+  <% end %>
+</details>

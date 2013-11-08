@@ -36,18 +36,6 @@ module GitReleaseNotes
       ["%H", "%an", "%ad", "%s", "%b"].join(COMMIT_FIELD_DELIMITER)
     end
 
-    def submodule_anchor
-      %Q{<a href="#{@url}/commits/#{@sha2}" target="_blank">#{@submodule}</a>}
-    end
-
-    def commit_anchor(sha)
-      %Q{<a href="#{@url}/commit/#{sha}" target="_blank">#{sha[0..7]}</a>}
-    end
-
-    def comparison_anchor
-      %Q{<a href="#{@url}/compare/#{@sha1}...#{@sha2}" target="_blank">compare</a>}
-    end
-
     def generate_html
       template_file = File.expand_path("../views/git_range.html.erb", File.dirname(__FILE__))
       renderer = ERB.new(File.read(template_file))
