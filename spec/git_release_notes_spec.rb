@@ -53,13 +53,15 @@ describe "Running the git_release_notes script" do
     commits = parent_repo.commits
 
     output = nil
+    repo_web_url = "http://examle.com/repo1"
     Dir.chdir parent_repo_folder do
-      output = `#{bin_dir}/git_release_notes #{commits[-1]} #{commits[0]}`
+      output = Capybara.string(`#{bin_dir}/git_release_notes #{commits[-1]} #{commits[0]} #{repo_web_url}`)
     end
     expect($?).to eq(0)
 
     expect(output).to have_selector("body")
     expect(output).to have_selector("body > details", 2)
+    expect(output.first("body > details").first("a")["href"]).to match(/^#{repo_web_url}/)
   end
 end
 

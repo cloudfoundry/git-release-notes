@@ -1,13 +1,14 @@
 class WhatsInTheDeploy
-  def initialize(sha1, sha2)
+  def initialize(sha1, sha2, git_web_url)
     @submodules = find_submodules
     @submodule_logs = []
     @sha1 = sha1
     @sha2 = sha2
+    @git_web_url = git_web_url
   end
 
   def compare_submodules
-    @submodule_logs << GitRange.new(".", "http://github.com/cloudfoundry/cf-release", @sha1, @sha2)
+    @submodule_logs << GitRange.new(".", @git_web_url, @sha1, @sha2)
 
     @submodules.each do |submodule, url|
       sub_sha1 = get_submodule_commit(@sha1, submodule)
