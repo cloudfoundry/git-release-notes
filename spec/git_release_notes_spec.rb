@@ -55,7 +55,7 @@ describe "Running the git_release_notes script" do
     output = nil
     repo_web_url = "http://examle.com/repo1"
     Dir.chdir parent_repo_folder do
-      output = Capybara.string(`#{bin_dir}/git_release_notes #{commits[-1]} #{commits[0]} #{repo_web_url}`)
+      output = Capybara.string(`#{bin_dir}/git_release_notes html --from #{commits[-1]} --to #{commits[0]} --git_web_url #{repo_web_url}`)
     end
 
     expect($?).to eq(0), "Test failed. The output is \n#{output.native.inner_html}"

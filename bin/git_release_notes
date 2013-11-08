@@ -2,10 +2,5 @@
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), "..", "lib")
 require "git_release_notes"
 
-if __FILE__ == $0
-  production_tag, rc_sha, git_web_url = ARGV
+ CLI.start
 
-  whats_in_the_deploy = GitParentRange.new(production_tag, rc_sha, git_web_url)
-  whats_in_the_deploy.compare_submodules
-  puts whats_in_the_deploy.generate_html
-end
