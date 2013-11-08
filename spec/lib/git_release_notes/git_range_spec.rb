@@ -67,7 +67,7 @@ describe GitRange do
         details = Capybara.string(git_range.generate_html)
         expect(details).to have_selector("details")
         expect(details).to have_selector("details > summary", text: repo.to_s)
-        expect(details.find("details > summary", text: "1 change(s)"))
+        expect(details.find("details > summary", text: "1 commits"))
         expect(details.find("details > summary  a")["href"]).to eql("http://example.com/repo1/commits/#{later_ref}")
         expect(details.find("details > h3", text: "#{earlier_ref[0..7]}..#{later_ref[0..7]}"))
         expect(details.find("details > h3 > a:nth-child(1)")["href"]).to eql("http://example.com/repo1/commit/#{earlier_ref}")
