@@ -32,6 +32,10 @@ module GitReleaseNotes
       commits
     end
 
+    def empty?
+      get_commits.size == 0
+    end
+
     def format
       ["%H", "%an", "%ad", "%s", "%b"].join(COMMIT_FIELD_DELIMITER)
     end

@@ -62,6 +62,12 @@ module GitReleaseNotes
           expect(commit.fetch(:body)).to include(second_body)
         end
 
+        it "is not empty" do
+          earlier_ref, later_ref = repo.commits.reverse
+          git_range = GitRange.new(repo, "http://example.com/repo1", earlier_ref, later_ref)
+          expect(git_range).not_to be_empty
+        end
+
         it "can generate the HTML" do
           earlier_ref, later_ref = repo.commits.reverse
           git_range = GitRange.new(repo, "http://example.com/repo1", earlier_ref, later_ref)
@@ -133,6 +139,12 @@ module GitReleaseNotes
         details = Capybara.string(git_range.generate_html)
 
         expect(details.find("details > div.no-changes")).to be
+      end
+
+      it "should be empty" do
+        only_ref = repo.commits[0]
+        git_range = GitRange.new(repo, "http://example.com/repo1", only_ref, only_ref)
+        expect(git_range).to be_empty
       end
     end
   end
