@@ -1,0 +1,7 @@
+rvm:
+  - ruby-1.9.3
+  - ruby-2.0.0
+
+before_install: 'bundle install'
+
+script: 'bundle exec rspec spec'
