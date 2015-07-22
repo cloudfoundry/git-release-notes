@@ -34,7 +34,7 @@ module GitReleaseNotes
 	options[:from],
         options[:to],
         options[:git_web_url],
-        options[:exclude_submodules_without_changes],
+        !options[:exclude_submodules_without_changes],
       ).generate_html
     end
   end
