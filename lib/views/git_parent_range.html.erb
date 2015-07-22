@@ -63,7 +63,7 @@
   </style>
 </head>
 <body>
-<h1>Changes in deploy from <%= @sha1 %> to <%= @sha2 %></h1>
+<h1>Changes in repository from <%= @sha1 %> to <%= @sha2 %></h1>
 <% @submodule_logs.each do |submodule_log| %>
     <%= submodule_log.generate_html %>
 <% end %>
